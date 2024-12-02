@@ -47,6 +47,11 @@ The following environment variables need to be set before running the script:
     ./backup.sh
     ```
 
+## Alternative option using Docker
+
+https://hub.docker.com/layers/eventyapublisher/postgres-backup-gcs
+
+
 ## License
 
 This project is licensed under the MIT License.
