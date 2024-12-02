@@ -49,7 +49,7 @@ The following environment variables need to be set before running the script:
 
 ## Alternative option using Docker
 
-https://hub.docker.com/layers/eventyapublisher/postgres-backup-gcs
+[https://hub.docker.com/layers/eventyapublisher/postgres-backup-gcs](https://hub.docker.com/r/eventyapublisher/postgres-backup-gcs)
 
 
 ## License
