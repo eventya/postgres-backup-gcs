@@ -9,7 +9,7 @@ env | grep -v CRON_SCHEDULE | grep -v PATH | grep -v _= > /scripts/env
 echo "$CRON_SCHEDULE . /scripts/env && /scripts/backup.sh >> /var/log/cron/backup.log 2>&1" > /etc/cron.d/postgres-backup
 
 # Give execution rights on the cron job
-chmod 0644 /scripts/env
+chmod +x /scripts/env
 chmod 0644 /etc/cron.d/postgres-backup
 
 # Apply the cron job
