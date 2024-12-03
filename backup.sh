@@ -2,6 +2,8 @@
 
 set -e
 
+source /scripts/env;
+
 # Required environment variables
 POSTGRES_HOST=${POSTGRES_HOST:-localhost}
 POSTGRES_PORT=${POSTGRES_PORT:-5432}

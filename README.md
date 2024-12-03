@@ -55,3 +55,9 @@ The following environment variables need to be set before running the script:
 ## License
 
 This project is licensed under the MIT License.
+
+
+## Docker
+
+- build - `docker build --platform="linux/amd64" -t eventyapublisher/postgres-backup-gcs .`
+- push - `docker push eventyapublisher/postgres-backup-gcs`
