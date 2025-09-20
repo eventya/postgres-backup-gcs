@@ -61,3 +61,7 @@ This project is licensed under the MIT License.
 
 - build - `docker build --platform="linux/amd64" -t eventyapublisher/postgres-backup-gcs .`
 - push - `docker push eventyapublisher/postgres-backup-gcs`
+
+
+## Bash
+- shell - `kamal accessory exec postgres-backup --interactive --reuse "bash"`
