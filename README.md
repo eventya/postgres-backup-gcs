@@ -59,9 +59,29 @@ This project is licensed under the MIT License.
 
 ## Docker
 
-- build - `docker build --platform="linux/amd64" -t eventyapublisher/postgres-backup-gcs .`
-- push - `docker push eventyapublisher/postgres-backup-gcs`
+pg_dump must have the same major version as the Postgres server it backs up: an older
+pg_dump refuses a newer server, and a newer one writes dumps an older server may not load.
+So each major is its own tag, and a project's `deploy.yml` pins the one that matches its
+server: `postgres:16-alpine` goes with `eventyapublisher/postgres-backup-gcs:16`.
+
+| Tag | pg_dump | For servers |
+|---|---|---|
+| `16` | 16 | Postgres 16 |
+| `latest` | 15 | Postgres 14 and 15 (the December 2024 build; a build without `PG_MAJOR` also gives 15) |
+
+Build and push a tag, logged in to Docker Hub as `eventyapublisher`:
+
+- build - `docker build --platform="linux/amd64" --build-arg PG_MAJOR=16 -t eventyapublisher/postgres-backup-gcs:16 .`
+- push - `docker push eventyapublisher/postgres-backup-gcs:16`
+
+Leave `latest` as it is: the Postgres 14 projects pull it again at their next
+`kamal accessory reboot postgres-backup`, and a newer pg_dump writes dumps their servers
+may not load.
 
 
 ## Bash
 - shell - `kamal accessory exec postgres-backup --interactive --reuse "bash"`
+- a backup now - `kamal accessory exec postgres-backup --reuse "/scripts/backup.sh"`
+- the nightly runs - `kamal accessory exec postgres-backup --reuse "tail -20 /var/log/cron/backup.log"`
+  (`kamal accessory logs` shows only cron starting). A failed pg_dump stops the run
+  before the upload, with its error here.
