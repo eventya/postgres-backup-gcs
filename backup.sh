@@ -1,6 +1,7 @@
 #!/bin/bash
 
-set -e
+# pipefail: a failed pg_dump must stop the run, not upload an empty .gz.
+set -eo pipefail
 
 source /scripts/env;
 
