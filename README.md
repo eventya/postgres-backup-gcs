@@ -67,7 +67,7 @@ server: `postgres:16-alpine` goes with `eventyapublisher/postgres-backup-gcs:16`
 | Tag | pg_dump | For servers |
 |---|---|---|
 | `16` | 16 | Postgres 16 |
-| `latest` | 15 | Postgres 14 and 15 (the December 2024 build) |
+| `latest` | 15 | Postgres 14 and 15 (the December 2024 build; a build without `PG_MAJOR` also gives 15) |
 
 Build and push a tag, logged in to Docker Hub as `eventyapublisher`:
 

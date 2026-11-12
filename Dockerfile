@@ -1,10 +1,11 @@
 FROM debian:bookworm
 
 # pg_dump must match the server's major version: an older pg_dump refuses a newer
-# server, and a newer one writes dumps an older server may not load. Debian bookworm
-# ships only 15, so the client comes from PostgreSQL's own repository. Each major is
-# its own tag: build with --build-arg PG_MAJOR=16 and push as :16.
-ARG PG_MAJOR=16
+# server, and a newer one writes dumps an older server may not load. The client comes
+# from PostgreSQL's own repository, which has every major. Each major is its own tag:
+# build with --build-arg PG_MAJOR=16 and push as :16. The default is 15, what latest
+# has always had, so a plain rebuild of latest keeps pg_dump 15 for the projects on it.
+ARG PG_MAJOR=15
 
 # Install required dependencies
 RUN apt-get update && apt-get install -y \
