@@ -13,6 +13,10 @@ DATE=$(date +"%Y%m%d%H%M%S")
 BACKUP_FILE="$BACKUP_DIR/$BACKUP_NAME-$DATE.sql.gz"
 GOOGLE_APPLICATION_CREDENTIALS=${GOOGLE_APPLICATION_CREDENTIALS}
 
+# The dump never stays in the container, uploaded or not: the dumps of failed nights
+# would otherwise pile up on the disk the database itself uses.
+trap 'rm -f "$BACKUP_FILE"' EXIT
+
 # Validate required variables
 if [ -z "$POSTGRES_DATABASE" ] || [ -z "$POSTGRES_USER" ] || [ -z "$BACKUP_NAME" ] || [ -z "$GCS_BUCKET" ]; then
   echo "Missing required environment variables." >&2
@@ -39,10 +43,6 @@ fi
 # Upload to Google Cloud Storage
 echo "Uploading $BACKUP_FILE to GCS bucket $GCS_BUCKET..."
 gsutil cp "$BACKUP_FILE" "gs://$GCS_BUCKET/"
-
-# Remove local backup file
-echo "Removing local backup file $BACKUP_FILE..."
-rm "$BACKUP_FILE"
 
 echo "Backup completed successfully."
 
